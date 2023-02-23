@@ -1,0 +1,81 @@
+﻿@page "/register"
+
+<h1>Register</h1>
+
+@if (IsSubmitting)
+{
+    <p>Submitting registration...</p>
+}
+else if (RegistrationSuccess)
+{
+    <p>Registration successful! You may now log in.</p>
+}
+else
+{
+    <form>
+        <div class="form-group">
+            <label for="cityname">City Name:</label>
+            <input type="text" class="form-control" id="cityname" @bind-value="@CityName">
+        </div>
+        <div class="form-group">
+            <label for="firstname">First Name:</label>
+            <input type="text" class="form-control" id="firstname" @bind-value="@FirstName">
+        </div>
+        <div class="form-group">
+            <label for="lastname">Last Name:</label>
+            <input type="text" class="form-control" id="lastname" @bind-value="@LastName">
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" @bind-value="@Email">
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" id="password" @bind-value="@Password">
+        </div>
+        <div class="form-group">
+            <label for="countofday">Count of Day:</label>
+            <input type="number" class="form-control" id="countofday" @bind-value="@CountOfDay">
+        </div>
+        <div class="form-group">
+            <label for="countofmember">Count of Member:</label>
+            <input type="number" class="form-control" id="countofmember" @bind-value="@CountOfMember">
+        </div>
+        <button type="submit" class="btn btn-primary" @onclick="Register">Register</button>
+    </form>
+}
+
+@code {
+    private string CityName { get; set; }
+    private string FirstName { get; set; }
+    private string LastName { get; set; }
+    private string Email { get; set; }
+    private string Password { get; set; }
+    private int CountOfDay { get; set; }
+    private int CountOfMember { get; set; }
+    private bool IsSubmitting { get; set; }
+    private bool RegistrationSuccess { get; set; }
+
+    private async Task Register()
+    {
+        IsSubmitting = true;
+
+        var User = new
+        {
+            CityName = CityName,
+            FirstName = FirstName,
+            LastName = LastName,
+            Email = Email,
+            Password = Password,
+            CountOfDay = CountOfDay,
+            CountOfMember = CountOfMember
+        };
+
+        // Here you would send the registration data to your server to process
+        // and handle any errors that may occur.
+        await Task.Delay(1000); // Simulate server delay
+        RegistrationSuccess = true;
+
+        IsSubmitting = false;
+    }
+}
