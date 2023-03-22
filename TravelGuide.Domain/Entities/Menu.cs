@@ -10,7 +10,9 @@ namespace TravelGuide.Domain.Entities
 {
     public class Menu : Auditable
     {
+        
         public long RestarauntId { get; set; }
+        public Restaraunt Restaraunt { get; set; }
         public string MealName { get; set; }
         public decimal Price { get; set; }
         public MealType TypeMeal { get; set; }

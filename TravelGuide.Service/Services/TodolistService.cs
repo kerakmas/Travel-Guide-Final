@@ -12,23 +12,12 @@ namespace TravelGuide.Service.Repositories
 {
     public class TodolistService
     {
-        private readonly GenericRepository<ToDoList> genericRepository = new GenericRepository<ToDoList>();
-        private long lastId;
+        private readonly TodolistRepository todolistRepository = new TodolistRepository();
         public async Task<Responce<ToDoList>> CreateAsync(ToDoListCreationDto list)
         {
-            var models = await this.genericRepository.GetAllAsync(x => x.Id > 0);
-            if (models.Count == 0)
-                lastId = 1;
-            else
-                lastId = (models[models.Count - 1].Id) + 1;
-
-            var model = models.FirstOrDefault(x => x.NumberOfDay == list.NumberOfDay);
-            if (model is null)
-            {
                 var mappedModel = new ToDoList()
                 {
-                    Id = lastId,
-                    UserId = lastId,
+                    UserId = list.UserId,
                     HoursSpend = list.HoursSpend,
                     PlaceType = list.PlaceType,
                     TripStatus = list.TripStatus,
@@ -38,26 +27,19 @@ namespace TravelGuide.Service.Repositories
                     NumberOfDay = list.NumberOfDay,
                     CreatedAt = DateTime.UtcNow
                 };
-                var result = await this.genericRepository.CreateAsync(mappedModel);
+                var result = await this.todolistRepository.InsertAsync(mappedModel);
                 return new Responce<ToDoList>()
                 {
                     StatusCode = 200,
                     Message = "Success",
                     Value = result
                 };
-            }
 
-            return new Responce<ToDoList>()
-            {
-                StatusCode = 403,
-                Message = "Already exists",
-                Value = null
-            };
         }
 
         public async Task<Responce<bool>> DeleteAsync(Predicate<ToDoList> predicate)
         {
-            var model = await this.genericRepository.GetByIdAsync(predicate);
+            var model = await this.todolistRepository.SelectAsync(predicate);
             if (model is null)
                 return new Responce<bool>()
                 {
@@ -66,7 +48,7 @@ namespace TravelGuide.Service.Repositories
                     Value = false
                 };
 
-            await this.genericRepository.DeleteAysnc(predicate);
+            await this.todolistRepository.DeleteAsync(model.Id);
             return new Responce<bool>()
             {
                 StatusCode = 200,
@@ -77,7 +59,7 @@ namespace TravelGuide.Service.Repositories
 
         public async Task<Responce<List<ToDoList>>> GetAllAsync(Predicate<ToDoList> predicate)
         {
-            var models = await this.genericRepository.GetAllAsync(predicate);
+            var models =  this.todolistRepository.SelectAllAsync().ToList();
             return new Responce<List<ToDoList>>()
             {
                 StatusCode = 200,
@@ -86,9 +68,9 @@ namespace TravelGuide.Service.Repositories
             };
         }
 
-        public async Task<Responce<ToDoList>> GetByIdAsync(Predicate<ToDoList> predicate)
+        public async Task<Responce<ToDoList>> GetAsync(Predicate<ToDoList> predicate)
         {
-            var model = await this.genericRepository.GetByIdAsync(predicate);
+            var model = await this.todolistRepository.SelectAsync(predicate);
             if (model is null)
             {
                 return new Responce<ToDoList>()
@@ -111,7 +93,7 @@ namespace TravelGuide.Service.Repositories
         public async Task<Responce<ToDoList>> UpdateAsync(Predicate<ToDoList> predicate, ToDoListCreationDto list)
         {
 
-            var model = await this.genericRepository.GetByIdAsync(predicate);
+            var model = await this.todolistRepository.SelectAsync(predicate);
             if (model is null)
             {
                 return new Responce<ToDoList>()
@@ -121,18 +103,15 @@ namespace TravelGuide.Service.Repositories
                     Value = null
                 };
             }
-            var mappedToDoList = new ToDoList()
-            {
-                HoursSpend = list.HoursSpend,
-                PlaceType = list.PlaceType,
-                TripStatus = list.TripStatus,
-                CityName = list.CityName,
-                Comment = list.Comment,
-                DayOfWeek = list.DayOfWeek,
-                NumberOfDay = list.NumberOfDay,
-                UpdatedAt = DateTime.UtcNow
-            };
-            var result = await this.genericRepository.UpdateAsync(predicate, mappedToDoList);
+            model.HoursSpend = list.HoursSpend;
+            model.PlaceType = list.PlaceType;
+            model.TripStatus = list.TripStatus;
+            model.CityName = list.CityName;
+            model.Comment = list.Comment;
+            model.DayOfWeek = list.DayOfWeek;
+            model.NumberOfDay = list.NumberOfDay;
+            model.UpdatedAt = DateTime.UtcNow;
+            var result = await this.todolistRepository.UpdateAsync(model);
             return new Responce<ToDoList>()
             {
                 StatusCode = 200,
