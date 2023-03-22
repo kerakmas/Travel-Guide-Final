@@ -1,26 +1,7 @@
-﻿
-
-
-
-
-using TravelGuide.Service.DTOs;
-using TravelGuide.Service.Repositories;
 
 Console.WriteLine("Asslomu Aleykum Men Http client dan foydalanib agar siz Davlat poytaxti nomini kiritez qasyi davlatnikiligini topib beradi. pasdagi commentga olingan kodni commentdan ochib ishlatishingiz mumkin meni projectim travel guide bulganligi uchun shu api ni topdim. bu httpl clinetdan tashqar oldingi projectim entity framework bilan databsaga mosladim uni ham ishlatib kurishingiz mumkin.");
 
 
-var obj = new UserCreationDto()
-{
-    CityName = "Tashkent",
-    CountOfDays = 10,
-    CountOfMembers = 20,
-    Email = "sadf1234",
-    FirstName = "ASdf",
-    LastName = "asdffv",
-    Password = "addf"
-};
-var s = new UserService();
-await s.CreateAsync(obj);
 
 //using System;
 //using System.Net.Http;
