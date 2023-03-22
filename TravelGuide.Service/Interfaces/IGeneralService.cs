@@ -13,7 +13,7 @@ namespace TravelGuide.Service.Interfaces
     {
         Task<Responce<List<Restaraunt>>> GetAllRestarauntsAsync(Predicate<Restaraunt> predicate = null);
         Task<Responce<List<TravelTip>>> GetAllTravelTipsAsync(Predicate<Restaraunt> predicate = null);
-        Task<Responce<List<Attraction>>> GetAllAttractionsAsync(Predicate<Attraction> predicate = null,long CityId);
+        Task<Responce<List<Attraction>>> GetAllAttractionsAsync(Predicate<Attraction> predicate = null);
 
 
     }
