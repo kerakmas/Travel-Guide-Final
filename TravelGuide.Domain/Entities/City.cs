@@ -13,9 +13,6 @@ namespace TravelGuide.Domain.Entities
        public string Location { get; set; }
        public string CountryName { get; set; }
        public string Language { get; set; }
-       public List<Attraction> Attractions { get; set; }
-       public List<Restaraunt> Restaraunts { get; set; }
-       public List<TravelTip> TravelTips { get; set; }
 
     }
 }

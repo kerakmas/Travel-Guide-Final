@@ -16,8 +16,5 @@ namespace TravelGuide.Domain.Entities
         public string Password { get; set; }
         public int CountOfDays { get; set; }
         public int CountOfMembers { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
-
     }
 }

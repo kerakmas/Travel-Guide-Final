@@ -14,7 +14,7 @@ namespace TravelGuide.Service.Interfaces
         Task<Responce<ToDoList>> CreateAsync(ToDoListCreationDto list);
         Task<Responce<ToDoList>> UpdateAsync(Predicate<ToDoList> predicate, ToDoListCreationDto list);
         Task<Responce<bool>> DeleteAsync(Predicate<ToDoList> predicate);
-        Task<Responce<ToDoList>> GetByIdAsync(Predicate<ToDoList> predicate);
+        Task<Responce<ToDoList>> GetAsync(Predicate<ToDoList> predicate);
         Task<Responce<List<ToDoList>>> GetAllAsync(Predicate<ToDoList> predicate = null);
     }
 }

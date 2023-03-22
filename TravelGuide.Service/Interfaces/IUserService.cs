@@ -14,7 +14,7 @@ namespace TravelGuide.Service.Interfaces
         Task<Responce<User>> CreateAsync(UserCreationDto user);
         Task<Responce<User>> UpdateAsync(Predicate<User> predicate, UserCreationDto user);
         Task<Responce<bool>> DeleteAsync(Predicate<User> predicate);
-        Task<Responce<User>> GetByIdAsync(Predicate<User> predicate);
-        Task<Responce<List<User>>> GetAllAsync(Predicate<User> predicate = null);
+        Task<Responce<User>> GetAsync(Predicate<User> predicate);
+        Task<Responce<List<User>>> GetAllAsync(Predicate<User> predicate);
     }
 }

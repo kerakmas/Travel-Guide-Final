@@ -12,8 +12,8 @@ namespace TravelGuide.Domain.Entities
         public string Name { get; set; }
         public string Location { get; set; }
         public long CityId { get; set; }
+        public City City { get; set; }
         public int ContactNumber { get; set; }
-        public List<Menu> Menus { get; set; }
 
     }
 }
