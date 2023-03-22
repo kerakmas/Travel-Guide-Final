@@ -16,7 +16,7 @@ namespace TravelGuide.Service.Services
         private readonly AttractionRepository attractionRepository = new AttractionRepository();
         private readonly RestarauntRepository restarauntRepository = new RestarauntRepository();
         private readonly TravelTipRepository travelTipRepository = new TravelTipRepository();
-        public async Task<Responce<List<Attraction>>> GetAllAttractionsAsync(Predicate<Attraction> predicate = null,long CityId)
+        public async Task<Responce<List<Attraction>>> GetAllAttractionsAsync(Predicate<Attraction> predicate = null)
         {
             return new Responce<List<Attraction>>
             {
